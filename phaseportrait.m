@@ -26,11 +26,14 @@ end
 global B
 close all
 
+dthlim  = 30; 
+thlim   = 60; 
+
 streamslice(dx1, dx2, u, v, 20); figure(gcf); hold on; 
 
-title(['FPE Phase Portrait for \beta = ' num2str(B) ]); 
+title(['FPE Phase Portrait for \beta = ' num2str(B) '\circ' ]); 
 xlabel('\theta [deg]'); ylabel('d\theta [deg/s]'); 
-axis([-90 90 -90 90]); axis square
+axis([-thlim thlim -dthlim dthlim]); % axis square
 % grid on; 
 
 %% Save

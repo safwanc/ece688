@@ -3,7 +3,7 @@ global Icom B L m g mgL mL2
 % Standard parameters
 Icom = 0.1; 
 L = 1; 
-m = 5; 
+m = 2; 
 g = 9.81; 
 B = 60; 
 
