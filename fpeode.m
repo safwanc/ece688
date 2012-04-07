@@ -1,4 +1,4 @@
-function [ dx ] = fpeode( x )
+function [ dx ] = fpeode( t, x )
 %FPEODE Computes the FPE ODE (Eq 11)
     
     global Icom B mgL mL2 
@@ -22,8 +22,8 @@ function [ dx ] = fpeode( x )
         end
     end
     
-    dx(1) = dtheta; 
-    dx(2) = ddtheta; 
+    dx(1,1) = dtheta; 
+    dx(2,1) = ddtheta; 
     
 end
 

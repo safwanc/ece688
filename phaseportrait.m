@@ -17,7 +17,7 @@ u = zeros(size(dx1));
 v = zeros(size(dx2));
 
 for i = 1:numel(dx1)
-    dx = fpeode([dx1(i); dx2(i)]); 
+    dx = fpeode(0, [dx1(i); dx2(i)]); 
     u(i) = dx(1); 
     v(i) = dx(2); 
 end
@@ -26,7 +26,7 @@ end
 global B
 close all
 
-dthlim  = 30; 
+dthlim  = 60; 
 thlim   = 60; 
 
 streamslice(dx1, dx2, u, v, 20); figure(gcf); hold on; 

@@ -18,3 +18,9 @@ xcuserdata
 CVS
 *.asv
 *.eps
+
+# Matlab Garbage
+
+*.mex
+*.asv
+*.mat
