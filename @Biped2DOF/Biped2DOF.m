@@ -6,9 +6,9 @@ classdef Biped2DOF < handle
         
         g = 9.81;   % Gravity Constant      [m/s^2]
         
-    end % /properties (Constant)
+    end
     
-    properties
+    properties (SetAccess = private)
         
         B = 60;     % Biped Leg Spread      [deg]
         L = 0.5;    % Biped Leg Length      [m]
@@ -18,6 +18,13 @@ classdef Biped2DOF < handle
         X   = [];   % Uniform State Angle       [deg, deg/s]
         DX  = [];   % Uniform State Velocity    [deg/s]
         t   = [];   % Simulation Time Vector    [s]
+        
+    end
+    
+    properties (SetAccess = private, GetAccess = private)
+        
+        d = [];     % Nominal Pivot Seperation  [m]
+        h = [];     % Nominal COM Height        [m]
         
     end % /properties
     
@@ -32,6 +39,9 @@ classdef Biped2DOF < handle
                 obj.B = Beta; 
             end
             
+            obj.d = obj.L * sind(obj.B/2); 
+            obj.h = obj.L * cosd(obj.B/2);
+
         end % /constructor
         
         
