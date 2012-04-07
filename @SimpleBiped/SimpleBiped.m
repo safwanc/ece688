@@ -3,27 +3,28 @@ classdef SimpleBiped
     %   Detailed explanation goes here
     
     properties (Constant)
-        g = 9.81; 
+        g = 9.81;   % Gravity Constant      [m/s^2]
     end
     
     properties
-        B = 60; 
-        L = 1; 
-        Icom = 0.1; 
-        m = 5; 
+        B = 60;     % Biped Leg Spread      [deg]
+        L = 1;      % Biped Leg Length      [m]
+        I = 0.1;    % Inertia about Pivot   [kg m^2]
+        m = 5;      % Total Mass at COM     [kg]
     end
     
     methods (Static)
         [ mgL, mL2 ] = Precompute(obj)
-        %val = Precompute(obj, expr)
     end
     
     methods
-        function obj = SimpleBiped(Beta, Length, Inertia, Mass)
-            obj.B = Beta; 
-            obj.L = Length; 
-            obj.Icom = Inertia; 
-            obj.m = Mass; 
+        function obj = SimpleBiped(Mass, Inertia, Length, Beta)
+            if nargin > 0
+                obj.m = Mass; 
+                obj.I = Inertia; 
+                obj.L = Length; 
+                obj.B = Beta; 
+            end
         end
     end
     
