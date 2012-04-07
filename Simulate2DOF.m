@@ -1,4 +1,4 @@
-global HSim; 
+
 Initialize2DOF; 
 
 %% Simulation Parameters
@@ -16,20 +16,24 @@ SimOpts = odeset(...
 );
 
 %% Numerical Integration
-[t, X] = ode45(@UnifiedEOM, Span, X0, SimOpts);
+[SimTime, X] = ode45(@UnifiedEOM, Span, X0, SimOpts);
 
 Theta   = X(:, 1); 
 Omega   = X(:, 2); 
 
 %% Plots Results
-figure(HSim); clf; hold on; 
+global HSim; figure(HSim); clf; hold on; 
 
-subplot(2,1,1), plot(t, Theta, 'r'); ylabel('\theta [deg]'); 
-title('Numerical Simulation Results'); axis auto; grid on; 
+subplot(2,1,1), plot(SimTime, Theta, 'r'); grid on; axis auto; 
+ylabel('$$\theta$$ [deg]', 'interpreter', 'latex'); 
+title('Unified Model $$\ddot{\theta} = F(\theta, \dot{\theta})$$', ...
+    'interpreter', 'latex'); 
 
-
-subplot(2,1,2), plot(t, Omega, 'r'); ylabel('\omega [deg/s]'); 
+subplot(2,1,2), plot(SimTime, Omega, 'r'); 
+ylabel('$$\dot{\theta}$$ [deg/s]', 'interpreter', 'latex'); 
 xlabel('Time [s]'); axis auto; grid on; 
 
 %% Save Data for Animation
-save('animdata.mat', 't', 'Theta', 'Omega'); 
+save('UnifiedState.mat', 'SimTime', 'Theta', 'Omega'); 
+
+% clear Sim* X* S* Theta Omega HSim
