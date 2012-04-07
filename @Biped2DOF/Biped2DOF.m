@@ -1,4 +1,4 @@
-classdef SimpleBiped
+classdef Biped2DOF
     %SIMPLEBIPED Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -18,7 +18,7 @@ classdef SimpleBiped
     end
     
     methods
-        function obj = SimpleBiped(Mass, Inertia, Length, Beta)
+        function obj = Biped2DOF(Mass, Inertia, Length, Beta)
             if nargin > 0
                 obj.m = Mass; 
                 obj.I = Inertia; 
