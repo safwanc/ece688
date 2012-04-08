@@ -4,30 +4,6 @@ function [ h ] = Animate( obj, h )
         h = randi(10);
     end
     
-    i = 1; GetTheta = @(k) obj.X(k); 
-    theta = GetTheta(i); 
-    
-    
-   %% Compute Kinematics
-    % Calculate Combined Model Angles: 
-    thetaa = obj(theta); 
-    thetab = th - B/2; 
-
-    % Compute nominal foot position + COM height
-    d = L * sind(B/2); 
-    h = L * cosd(B/2);
-
-    % Compute the pivot points for each leg
-    PivotA = -d; PivotB = d; 
-
-
-    % Position Vector to COM (i.e. Stance Foot)
-    rstance = [L*sin(thetaa), L*cos(thetaa)]; 
-
-    % Position Vector from COM (i.e. Swing Foot)
-    rswing = ((-1 * [L*sin(thetab), L*cos(thetab)]) + rstance); 
-
-
     %% Figure Initialization
     figure(h); clf; hold on
     title('Unified Model $$\ddot{\theta} = F(\theta, \dot{\theta})$$', ...
@@ -67,37 +43,5 @@ function [ h ] = Animate( obj, h )
         end
     end
     hold off    
-end
-
-function [A, B, C] = ForwardKinematics(obj, theta)
-    % Compute the positions of PivotA, PivotB and the COM based on the
-    % unified state variable 'theta'. 
-    
-    LegVector = @(L) [0 L]'; 
-    RotateCW  = @(v,a) ([cosd(a) sind(a); -sind(a) cosd(a)] * v); 
-    RotateCCW = @(v,a) ([cosd(a) -sind(a); sind(a) cosd(a)] * v); 
-    
-    ThetaA = GetThetaA(obj, theta); 
-    %ThetaB = GetThetaB(obj, theta); 
-    
-    
-    % Assuming Point A is the pivot: 
-    A = [-obj.d 0]'; 
-    VectorA = A + LegVector(obj.L); % Straight Leg
-    C = RotateCW(VectorA, ThetaA) + A; 
-    VectorB = A - C; 
-    B = RotateCCW(VectorB, obj.B) + C;
-    
-    
-%     if (theta > 0) 
-%         a = - obj.d; 
-%         c = a + RotateCW(thetaa); 
-%         b = c + RotateCCW(theta); 
-%     elseif (theta < 0)
-%         b = obj.d; 
-%         c = b + RotateCCW(theta); 
-%     else
-%         La = [-a; L]; 
-%     end
 end
 
