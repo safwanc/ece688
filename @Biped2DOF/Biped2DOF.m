@@ -50,16 +50,21 @@ classdef Biped2DOF < handle
         
         % Numerically integrates ODE to simulate a Biped2DOF instance: 
         [t, x, dx] = Simulate(obj, x0, tf, opts)
-  
+        
+        % Computes FK
+        [A, B, C] = ForwardKinematics(obj, theta)
+        
+        [a] = GetThetaA(obj, theta); 
+        [b] = GetThetaB(obj, theta); 
         
     end % /methods
     
-    methods (Static)
-        
-        [anga] = ThetaA(obj, theta); 
-        [angb] = ThetaB(obj, theta); 
-        
-    end % /methods (Static)
+%     methods (Static)
+%         
+%         [a] = GetThetaA(obj, theta); 
+%         [b] = GetThetaB(obj, theta); 
+%         
+%     end % /methods (Static)
     
 end % /classdef
 

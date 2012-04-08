@@ -69,24 +69,35 @@ function [ h ] = Animate( obj, h )
     hold off    
 end
 
-function [a, b, c] = ForwardKinematics(obj, theta)
+function [A, B, C] = ForwardKinematics(obj, theta)
     % Compute the positions of PivotA, PivotB and the COM based on the
     % unified state variable 'theta'. 
     
-    RotateCW  = @(theta) obj.L*[cosd(theta);sind(theta)]; 
-    RotateCCW = @(theta) obj.L*[cosd(theta);-sind(theta)];
+    LegVector = @(L) [0 L]'; 
+    RotateCW  = @(v,a) ([cosd(a) sind(a); -sind(a) cosd(a)] * v); 
+    RotateCCW = @(v,a) ([cosd(a) -sind(a); sind(a) cosd(a)] * v); 
     
-    a = -obj.d; 
-    b = obj.d; 
+    ThetaA = GetThetaA(obj, theta); 
+    %ThetaB = GetThetaB(obj, theta); 
     
-    if (theta > 0) 
-        a = - obj.d; 
-        % compute b, c
-    elseif (theta < 0)
-        b = obj.d; 
-        % compute a, c
-    else
-        a = 
-
+    
+    % Assuming Point A is the pivot: 
+    A = [-obj.d 0]'; 
+    VectorA = A + LegVector(obj.L); % Straight Leg
+    C = RotateCW(VectorA, ThetaA) + A; 
+    VectorB = A - C; 
+    B = RotateCCW(VectorB, obj.B) + C;
+    
+    
+%     if (theta > 0) 
+%         a = - obj.d; 
+%         c = a + RotateCW(thetaa); 
+%         b = c + RotateCCW(theta); 
+%     elseif (theta < 0)
+%         b = obj.d; 
+%         c = b + RotateCCW(theta); 
+%     else
+%         La = [-a; L]; 
+%     end
 end
 

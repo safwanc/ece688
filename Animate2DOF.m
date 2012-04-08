@@ -1,13 +1,13 @@
-
-
-
-
-h = figure(5); clf(h); axis([xrange yrange]); hold on
-title('2DOF Biped Animation'); xlabel('X [m]'); ylabel('Y [m]'); 
-
-xground = xrange(1):0.1:xrange(2); 
-yground = zeros(1, length(xground)); 
-hground = plot(xground, yground, 'k', 'LineWidth', 3); 
+% 
+% 
+% 
+% 
+% h = figure(5); clf(h); axis([xrange yrange]); hold on
+% title('2DOF Biped Animation'); xlabel('X [m]'); ylabel('Y [m]'); 
+% 
+% xground = xrange(1):0.1:xrange(2); 
+% yground = zeros(1, length(xground)); 
+% hground = plot(xground, yground, 'k', 'LineWidth', 3); 
 
 %% ---------------
 
