@@ -1,6 +1,28 @@
 classdef Biped2DOF < handle
-    %BIPED2DOF Summary of this class goes here
-    %   Detailed explanation goes here
+    %BIPED2DOF Standard Compass Biped Model
+    %   Represents the standard sagittal biped configuration used for
+    %   simplified gait analysis in bipedal locomotion. This class is
+    %   unique in the sense that it utilizes a uniform state variable
+    %   to represent the system via geometric relationship between the
+    %   physical parameters of the system. This approach is described
+    %   in detail by Derek et al in [1]. 
+    %
+    %   See also:   INITIALIZE2DOF
+    % 
+    %   Reference:  [1] Introduction of the Foot Placement Estimator: 
+    %                   A Dynamic Measure of Balance for Bipedal Robotics
+    % 
+    %                   (DOI: http://dx.doi.org/10.1115/1.2815334)
+    
+    % Author:       Safwan Choudhury, MASc
+    %               University of Waterloo
+    %
+    % Date:         April 10, 2012
+    %
+    % Email:        schoudhu@uwaterloo.ca
+    % Website:      http://ece.uwaterloo.ca/~schoudhu
+    
+    %% Class Properties
     
     properties (Constant)
         
@@ -28,6 +50,7 @@ classdef Biped2DOF < handle
         
     end % /properties
     
+    %% Class Methods
     methods 
         
         function [obj] = Biped2DOF(Mass, Inertia, Length, Beta)
@@ -58,13 +81,6 @@ classdef Biped2DOF < handle
         [b] = GetThetaB(obj, theta); 
         
     end % /methods
-    
-%     methods (Static)
-%         
-%         [a] = GetThetaA(obj, theta); 
-%         [b] = GetThetaB(obj, theta); 
-%         
-%     end % /methods (Static)
     
 end % /classdef
 
