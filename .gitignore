@@ -16,11 +16,16 @@ xcuserdata
 # svn & cvs
 .svn
 CVS
-*.asv
+
+# images garbage
 *.eps
+*.psd
+*.png
+*.jpg
+*.gif
+*.ico
 
-# Matlab Garbage
-
+# matlab garbage
 *.mex
 *.asv
 *.mat
