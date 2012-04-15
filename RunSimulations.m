@@ -18,6 +18,7 @@ close all; clear all; clc
 
 HTimePlot   = 1;    % Figure handle for 'Time Evolution Plots'
 HPhasePlot  = 2;    % Figure handle for 'Phase Portrait Plots'
+HAnimPlot   = 3; 
 
 fprintf(1,'\nECE 688: Course Project Simulation\n');
 
@@ -33,6 +34,9 @@ TimeEvolution(Biped, HTimePlot);
 PhasePortrait(Biped, HPhasePlot); 
 
 % @TODO: Display state trajectories overlaid 
+
+% Animate Biped Motion
+Animate(Biped, HAnimPlot); 
 
 %% Clean
 clear H*; 

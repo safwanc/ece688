@@ -4,13 +4,20 @@ function [ h ] = Animate( obj, h )
         h = randi(10);
     end
     
+    footsep = obj.d; 
+    height = obj.h; 
+    L = obj.L;
+    t = obj.t; 
+    
+    [A, B, C] = obj.ForwardKinematics(obj.X(1));
+    
     %% Figure Initialization
     figure(h); clf; hold on
     title('Unified Model $$\ddot{\theta} = F(\theta, \dot{\theta})$$', ...
         'interpreter', 'latex'); 
     xlabel('X [m]', 'interpreter', 'latex'); 
     ylabel('Y [m]', 'interpreter', 'latex'); 
-    axis([-(d+1) (d+1) -0.5 (h+2)]); grid on;
+    axis([-(footsep+0.1) (footsep+0.1) -0.1 (height+0.2)]); grid on;
     
 
     c = 0 : pi/100 : 2*pi; % Circles for COM and pivots
@@ -18,30 +25,49 @@ function [ h ] = Animate( obj, h )
     footcircx = (L/40) * sin(c); footcircy = (L/40) * cos(c); 
 
     % Initialize object handles
-    floor   = line([-5 5], [0 0], 'LineWidth', 3, 'Color', 'k');
-    com     = fill(comcircx+rstance(1,1), comcircy+rstance(1,2), 'b'); 
-    stance  = plot([0, rstance(1,1)], [0, rstance(1,2)], 'b', 'LineWidth', 3); 
-    stancef = fill(footcircx+0, footcircy+0, 'b'); 
-    swing   = plot([0, rswing(1,1)], [0, rswing(1,2)], 'b--', 'LineWidth', 3); 
-    swingf  = fill(footcircx+rswing(1,1), footcircy+rswing(1,2), 'b'); 
+    line([-5 5], [0 0], 'LineWidth', 3, 'Color', 'k');
+    
+    com     = fill(comcircx+C(1), comcircy+C(2), 'b'); 
+    stance  = plot([A(1), C(1)], [A(2), C(2)], 'b', 'LineWidth', 3); 
+    swing   = plot([B(1), C(1)], [B(2), C(2)], 'b--', 'LineWidth', 3); 
+    stancef = fill(footcircx+A(1), footcircy+A(2), 'b'); 
+    swingf  = fill(footcircx+B(1), footcircy+B(2), 'b'); 
 
-    %% Animate Compass Biped
+%% Animate Compass Biped
     for i = 1 : length(t) 
+        
+        theta = obj.X(i); [A, B, C] = obj.ForwardKinematics(theta);
+        
+        if (C(2) < 0)
+            error('The biped has fallen.'); 
+        end
+        
         % COM Update
-        set(com, 'XData', comcircx+rstance(i,1), 'YData', comcircy+rstance(i,2)); 
+        set(com, 'XData', comcircx+C(1), 'YData', comcircy+C(2)); 
 
         % Stance Update
-        set(stance, 'XData', [0, rstance(i,1)], 'YData', [0, rstance(i,2)]); 
-        set(stancef, 'XData', footcircx+0, 'YData', footcircy+0); 
+        set(stance, 'XData', [A(1), C(1)], 'YData', [A(2), C(2)]); 
+        set(stancef, 'XData', footcircx+A(1), 'YData', footcircy+A(2)); 
 
         % Swing Update
-        set(swing, 'XData', [rstance(i,1), rswing(i,1)], 'YData', [rstance(i,2), rswing(i,2)]); 
-        set(swingf, 'XData', footcircx+rswing(i,1), 'YData', footcircy+rswing(i,2));
-
-        if i < length(t)
-            pause(t(i+1) - t(i)); 
+        set(swing, 'XData', [B(1), C(1)], 'YData', [B(2), C(2)]); 
+        set(swingf, 'XData', footcircx+B(1), 'YData', footcircy+B(2));
+        
+        if (theta < 0)
+            set(stance, 'LineStyle', '-'); 
+            set(swing, 'LineStyle', '--'); 
+        else
+            set(stance, 'LineStyle', '--'); 
+            set(swing, 'LineStyle', '-'); 
         end
+        
+        if i < length(t)
+            pause((t(i+1) - t(i))/2); 
+        end
+        
     end
     hold off    
 end
+
+
 
