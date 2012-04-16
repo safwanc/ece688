@@ -19,9 +19,9 @@ global Biped
 Beta    = 60;   % Biped Leg Spread      [deg]
 Length  = 0.5;  % Biped Leg Length      [m]
 Mass    = 2.0;  % Total Mass at COM     [kg]
-Inertia = 0.1;  % Inertia about Pivot   [kg m^2]
+Inertia = 0.001;  % Inertia about Pivot   [kg m^2]
 
-Biped = Biped2DOF(Mass, Inertia, Length, Beta) % Display initialized biped
+Biped = Biped2DOF(Mass, Inertia, Length, Beta); % Display initialized biped
 
 %% Clean
 clear Beta Length Mass Inertia

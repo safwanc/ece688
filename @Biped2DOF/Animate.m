@@ -19,8 +19,8 @@ function [ h ] = Animate( obj, h )
     ylabel('Y [m]', 'interpreter', 'latex'); 
     axis([-(footsep+0.1) (footsep+0.1) -0.1 (height+0.2)]); grid on;
     
-
-    c = 0 : pi/100 : 2*pi; % Circles for COM and pivots
+    % Circles for COM and pivots
+    c = 0 : pi/100 : 2*pi; 
     comcircx  = (L/15) * sin(c); comcircy = (L/15) * cos(c); 
     footcircx = (L/40) * sin(c); footcircy = (L/40) * cos(c); 
 
@@ -39,7 +39,11 @@ function [ h ] = Animate( obj, h )
         theta = obj.X(i); [A, B, C] = obj.ForwardKinematics(theta);
         
         if (C(2) < 0)
-            error('The biped has fallen.'); 
+            warning('The biped has fallen.'); 
+            return
+        else
+            xlim([C(1)-(footsep+0.3) (C(1)+footsep+0.3)]);
+            axis square
         end
         
         % COM Update

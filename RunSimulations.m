@@ -23,7 +23,8 @@ HAnimPlot   = 3;
 fprintf(1,'\nECE 688: Course Project Simulation\n');
 
 %% Init + Simulate 
-Initialize2DOF; Simulate(Biped, [-29; 0]); 
+X0 = [-17; 5]; 
+Initialize2DOF; Simulate(Biped, X0); 
 
 %% Produce Plots
 
@@ -32,11 +33,11 @@ TimeEvolution(Biped, HTimePlot);
 
 % Display phase portrait with stable regions outlined. 
 PhasePortrait(Biped, HPhasePlot); 
-
-% @TODO: Display state trajectories overlaid 
+% Overlay phase trajectory 
+PhaseEvolution(Biped, HPhasePlot); 
 
 % Animate Biped Motion
-Animate(Biped, HAnimPlot); 
+% Animate(Biped, HAnimPlot); 
 
 %% Clean
 clear H*; 
