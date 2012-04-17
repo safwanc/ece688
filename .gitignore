@@ -24,6 +24,7 @@ CVS
 *.jpg
 *.gif
 *.ico
+*.pdf
 
 # matlab garbage
 *.mex
