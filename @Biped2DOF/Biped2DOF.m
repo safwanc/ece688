@@ -30,9 +30,14 @@ classdef Biped2DOF < handle
         
     end
     
-    properties (SetAccess = private)
+    properties 
         
         B = 60;     % Biped Leg Spread      [deg]
+        
+    end
+    
+    properties (SetAccess = private)
+        
         L = 0.5;    % Biped Leg Length      [m]
         I = 0.1;    % Inertia about Pivot   [kg m^2]
         m = 2.0;    % Total Mass at COM     [kg]

@@ -8,7 +8,7 @@ function [ h ] = PhasePortrait( obj, h )
     
     %% Phase Curve Generation
     x1 = linspace(-90, 90, N); 
-    x2 = linspace(-150, 150, N); 
+    x2 = linspace(-250, 250, N); 
 
     [dx1, dx2] = meshgrid(x1, x2); 
 
@@ -36,7 +36,7 @@ function [ h ] = PhasePortrait( obj, h )
     axis([-thlim thlim -dthlim dthlim]); hold off; 
     
     %% Draw Regions
-    %StableRegions(obj, h); 
+    StableRegions(obj, h); 
     
 end
 
@@ -65,7 +65,7 @@ function [ hsr1, hsr2, hsr3 ] = StableRegions( obj, h )
 
     hspr = plot([-B*thval, NaN, B*thval], [dthval, NaN, dthval], ...
         'k-.', 'LineWidth', 2); 
-
+%{
     %% Stable Region 1                        [Inside Energy Well]
     
     sr1 = @(th) sqrt( (2*mgL*(1-cosd(abs(th)-B/2))) / (Icom + mL2) ); % [Eq 27]
@@ -113,6 +113,6 @@ function [ hsr1, hsr2, hsr3 ] = StableRegions( obj, h )
 %         'FontAngle', 'italic', ...
 %         'FontSize', 8, ...
 %         'Orientation', 'horizontal'); 
-
+%}
 end
 

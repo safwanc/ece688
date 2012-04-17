@@ -8,13 +8,13 @@ classdef BipedUtil
     methods
         
         function [obj] = BipedUtil
-            % apparently this is necessary. 
+            
         end % /constructor
         
     end
     
     methods (Static)
-        SavePlot(obj, name, h); 
+        SavePlot(name, h)
     end
     
 end

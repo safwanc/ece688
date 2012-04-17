@@ -10,7 +10,7 @@ function [ t, x, dx ] = Simulate( obj, x0, tf, opts )
     end
     
     if nargin < 3               % Default simulation run time. 
-        tf = 20;
+        tf = 10;
     end
     
     if nargin < 2               % Equilibrium state if unspecified.

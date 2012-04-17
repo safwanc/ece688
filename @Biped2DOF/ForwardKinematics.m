@@ -1,8 +1,12 @@
 function [A, B, C] = ForwardKinematics(obj, theta)
     % Compute the positions of PivotA, PivotB and the COM based on the
     % unified state variable 'theta'. 
-        
-    Rotate  = @(v,a) ([cosd(a) sind(a); -sind(a) cosd(a)] * v); 
+    
+    persistent Rotate
+    
+    if isempty(Rotate)
+        Rotate  = @(v,a) ([cosd(a) sind(a); -sind(a) cosd(a)] * v); 
+    end
     
     % Nominal Configuration: 
     A = [-obj.d 0]'; 
